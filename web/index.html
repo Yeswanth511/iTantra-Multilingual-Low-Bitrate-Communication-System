@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iTantra - Neural Transceiver Radio Access Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Top Navigation & Status Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="logo-icon">📡</div>
+        <div>
+          <h1>iTantra <span class="badge-tag">IEEE Hackathon</span></h1>
+          <p class="subtitle">Indian Multilingual TTS & STT Aided Neural Transceiver Radio Access for Low Bitrate Links</p>
+        </div>
+      </div>
+      
+      <div class="header-status">
+        <a href="/iTantra_Project_Explanation_Report.pdf" download="iTantra_Project_Explanation_Report.pdf" class="download-pdf-btn" style="text-decoration: none; display: flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #0284c7, #00d2ff); color: #06090e; font-weight: 600; font-size: 12px; padding: 6px 14px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 210, 255, 0.3); transition: all 0.2s ease;">
+          📥 Download Defense PDF
+        </a>
+        <div class="status-indicator online">
+          <span class="pulse-dot"></span>
+          <span>Offline Mesh Active</span>
+        </div>
+        <div class="mode-badge" id="currentModeBadge">Direct P2P Link</div>
+        <div class="team-tag">Team Fifth Gear</div>
+      </div>
+    </header>
+
+    <!-- Main Dual Transceiver Dashboard Grid -->
+    <main class="dashboard-grid">
+
+      <!-- LEFT COLUMN: TRANSMITTER PHONE (STT SIDE) -->
+      <section class="card device-card transmitter-card">
+        <div class="card-header">
+          <div class="device-title">
+            <span class="device-icon">📱</span>
+            <div>
+              <h2>Transmitter Node (STT)</h2>
+              <span class="node-id-tag">ID: NODE_ALPHA | Base Station</span>
+            </div>
+          </div>
+          <div class="vad-pill" id="vadStatus">
+            <span class="vad-dot"></span> VAD Idle
+          </div>
+        </div>
+
+        <div class="card-body">
+          <!-- Audio Capture & VAD Visualizer -->
+          <div class="audio-control-panel">
+            <div class="visualizer-container">
+              <canvas id="waveformCanvas" width="380" height="70"></canvas>
+              <div class="vad-pause-indicator" id="vadPauseNotice">Speech Pause Detected • Triggering Low-Bitrate Relay...</div>
+            </div>
+
+            <div class="mic-buttons">
+              <button id="recordBtn" class="btn btn-primary mic-btn">
+                <span class="mic-icon">🎙️</span>
+                <span id="recordBtnText">Speak (WebRTC VAD)</span>
+              </button>
+              <button id="clearBtn" class="btn btn-secondary">Clear</button>
+            </div>
+          </div>
+
+          <!-- STT Transcript Box -->
+          <div class="form-group">
+            <label for="transcriptText">Speech Transcript (STT Output):</label>
+            <textarea id="transcriptText" rows="3" placeholder="Speak into mic or select emergency alert below..."></textarea>
+          </div>
+
+          <!-- Quick Emergency Semantic Alerts -->
+          <div class="semantic-alerts-section">
+            <label>Semantic Alert Dictionary (4-Byte Codec):</label>
+            <div class="semantic-grid" id="semanticButtons">
+              <button class="alert-chip emergency" data-code="0xE1" data-phrase="Medical emergency! Need immediate assistance.">
+                🚨 Medical SOS (0xE1)
+              </button>
+              <button class="alert-chip emergency" data-code="0xE2" data-phrase="Fire outbreak reported! Evacuate area immediately.">
+                🔥 Fire Outbreak (0xE2)
+              </button>
+              <button class="alert-chip warning" data-code="0xE3" data-phrase="Flood alert! Move to higher ground.">
+                🌊 Flood Alert (0xE3)
+              </button>
+              <button class="alert-chip emergency" data-code="0xE5" data-phrase="SOS! Trapped and need rescue team.">
+                🆘 Trapped SOS (0xE5)
+              </button>
+            </div>
+          </div>
+
+          <!-- Telemetry & Sensor Context -->
+          <div class="telemetry-bar">
+            <div class="telemetry-item">
+              <span class="label">GPS Sensor:</span>
+              <span class="value" id="gpsValue">12.9716° N, 77.5946° E</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="label">Altitude:</span>
+              <span class="value">920m</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="label">Channel:</span>
+              <span class="value">BLE / Wi-Fi Direct</span>
+            </div>
+          </div>
+
+          <!-- Destination & Transmission Mode Selector -->
+          <div class="transmission-controls">
+            <div class="control-row">
+              <div class="form-group half">
+                <label for="transmissionMode">Communication Mode:</label>
+                <select id="transmissionMode">
+                  <option value="DIRECT">Direct P2P Link</option>
+                  <option value="MESH_FORWARDING" selected>Multi-Hop Mesh Relay</option>
+                  <option value="EMERGENCY_BROADCAST">Emergency Broadcast Flooding</option>
+                </select>
+              </div>
+              <div class="form-group half">
+                <label for="targetNode">Destination Address:</label>
+                <select id="targetNode">
+                  <option value="NODE_BRAVO">Bravo Station (Direct)</option>
+                  <option value="GROUP_RESCUE">Rescue Group (Members)</option>
+                  <option value="BROADCAST" selected>Emergency Broadcast (All)</option>
+                </select>
+              </div>
+            </div>
+
+            <button id="transmitBtn" class="btn btn-success transmit-btn">
+              <span>📡 Transmit Payload Over Low-Bitrate Link</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CENTER COLUMN: LOW-BITRATE RELAY & MESH MONITOR -->
+      <section class="card mesh-card">
+        <div class="card-header">
+          <h2>Low-Bitrate Relay Layer</h2>
+          <span class="stats-badge">Mesh Topology</span>
+        </div>
+
+        <div class="card-body">
+          <!-- Bandwidth Compression Analytics Card -->
+          <div class="analytics-card">
+            <h3>Bandwidth & Bitrate Savings</h3>
+            <div class="compression-meter">
+              <div class="metric-box">
+                <span class="metric-title">Raw Audio Payload</span>
+                <span class="metric-val text-danger" id="rawAudioBytes">240.0 KB</span>
+                <span class="metric-sub">~64-128 kbps</span>
+              </div>
+              <div class="arrow-divider">➡️</div>
+              <div class="metric-box">
+                <span class="metric-title">iTantra Payload</span>
+                <span class="metric-val text-success" id="iTantraPayloadBytes">16 Bytes</span>
+                <span class="metric-sub" id="payloadTypeLabel">Semantic Code</span>
+              </div>
+            </div>
+            <div class="savings-progress">
+              <div class="savings-bar" id="savingsBar" style="width: 99.9%;"></div>
+            </div>
+            <div class="savings-footer">
+              <span>Data Consumption Reduction:</span>
+              <strong class="text-glow" id="bandwidthSavedPct">99.98% Saved</strong>
+            </div>
+          </div>
+
+          <!-- Interactive P2P Mesh Topology Diagram -->
+          <div class="mesh-topology-view">
+            <h3>Multi-Hop Peer Nodes</h3>
+            <div class="node-network">
+              <div class="node-item active" id="nodeAlpha">
+                <div class="node-dot"></div>
+                <div class="node-info">
+                  <strong>Alpha Base</strong>
+                  <span>Transmitter (-42 dBm)</span>
+                </div>
+              </div>
+              <div class="network-line" id="line1"></div>
+              <div class="node-item active" id="nodeRelay1">
+                <div class="node-dot"></div>
+                <div class="node-info">
+                  <strong>Relay Tower 01</strong>
+                  <span>Hop 1 (-65 dBm)</span>
+                </div>
+              </div>
+              <div class="network-line" id="line2"></div>
+              <div class="node-item active" id="nodeBravo">
+                <div class="node-dot"></div>
+                <div class="node-info">
+                  <strong>Bravo Station</strong>
+                  <span>Receiver (-55 dBm)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payload Code Hex Inspector -->
+          <div class="hex-inspector">
+            <div class="inspector-title">
+              <span>Binary Packet Payload (Hex):</span>
+              <span id="hexBytesCount">4 Bytes</span>
+            </div>
+            <div class="hex-display" id="hexPayloadView">0xE1 0x03 0xE5 0x1E</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: RECEIVER PHONE (TTS SIDE) -->
+      <section class="card device-card receiver-card">
+        <div class="card-header">
+          <div class="device-title">
+            <span class="device-icon">📲</span>
+            <div>
+              <h2>Receiver Node (TTS)</h2>
+              <span class="node-id-tag">ID: NODE_BRAVO | Mobile Receiver</span>
+            </div>
+          </div>
+          <div class="status-pill rx-online">Rx Online</div>
+        </div>
+
+        <div class="card-body">
+          <!-- Receiver Preferred Language Personalization -->
+          <div class="form-group lang-selector-group">
+            <label for="preferredLangSelect">
+              🌐 Receiver Preferred Language:
+            </label>
+            <select id="preferredLangSelect" class="lang-select">
+              <option value="hi" selected>Hindi (हिंदी)</option>
+              <option value="ta">Tamil (தமிழ்)</option>
+              <option value="te">Telugu (తెలుగు)</option>
+              <option value="kn">Kannada (ಕನ್ನಡ)</option>
+              <option value="ml">Malayalam (മലയാളം)</option>
+              <option value="bn">Bengali (বাংলা)</option>
+              <option value="mr">Marathi (मराठी)</option>
+              <option value="gu">Gujarati (ગુજરાતી)</option>
+              <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
+              <option value="en">English (English)</option>
+            </select>
+          </div>
+
+          <!-- Received Message Display Box -->
+          <div class="received-msg-container" id="rxMsgBox">
+            <div class="msg-meta" id="rxMsgMeta">
+              <span>Awaiting transmission...</span>
+            </div>
+            <div class="msg-content" id="rxMsgText">
+              No transmission received yet.
+            </div>
+            <div class="msg-translation" id="rxMsgTranslation">
+              Select preferred language and transmit from left panel.
+            </div>
+          </div>
+
+          <!-- On-Device TTS Synthesis & Audio Output Controls -->
+          <div class="tts-controls">
+            <button id="playTtsBtn" class="btn btn-primary tts-btn">
+              <span>🔊 Reconstruct & Play TTS Speech</span>
+            </button>
+            <button id="emergencySirenBtn" class="btn btn-danger siren-btn">
+              <span>🚨 Emergency Alert Siren</span>
+            </button>
+          </div>
+
+          <!-- Offline Location Map Display -->
+          <div class="location-context-box">
+            <div class="location-header">
+              <span>📍 Sender Location Context</span>
+              <span class="gps-badge" id="rxGpsBadge">GPS Attached</span>
+            </div>
+            <div class="location-details" id="rxLocationDetails">
+              Latitude: 12.9716° N | Longitude: 77.5946° E (Bengaluru Sector)
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Transmission Audit Log Table -->
+    <footer class="transmission-log-section">
+      <div class="log-header">
+        <h3>📋 Radio Access Packet Log & Audits</h3>
+        <span class="log-count" id="logCountLabel">0 Transmissions</span>
+      </div>
+      <div class="table-container">
+        <table class="log-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Mode</th>
+              <th>Payload Type</th>
+              <th>Bytes (Raw → iTantra)</th>
+              <th>Saved</th>
+              <th>Target Lang</th>
+              <th>Latency</th>
+              <th>Original Speech</th>
+              <th>Received Reconstruction</th>
+            </tr>
+          </thead>
+          <tbody id="logTableBody">
+            <tr>
+              <td colspan="9" class="empty-log">No transmission packets recorded. Click "Transmit" above to start.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

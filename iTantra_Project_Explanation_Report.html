@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>iTantra - Project Explanation & Academic Defense Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-right {
+      content: "Page " counter(page);
+      font-family: 'Inter', sans-serif;
+      font-size: 8pt;
+      color: #64748b;
+    }
+    @bottom-left {
+      content: "iTantra • Team Fifth Gear • IEEE Hackathon";
+      font-family: 'Inter', sans-serif;
+      font-size: 8pt;
+      color: #64748b;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    line-height: 1.55;
+    font-size: 9.5pt;
+  }
+
+  /* Cover / Header Header Banner */
+  .cover-banner {
+    background: linear-gradient(135deg, #091322 0%, #0f172a 50%, #1e293b 100%);
+    color: #ffffff;
+    padding: 24px 28px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    border-left: 6px solid #00d2ff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  }
+
+  .cover-title {
+    font-size: 23pt;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .cover-title span.badge {
+    background: rgba(0, 210, 255, 0.18);
+    color: #00d2ff;
+    border: 1px solid rgba(0, 210, 255, 0.4);
+    font-size: 9pt;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .cover-subtitle {
+    font-size: 11pt;
+    color: #94a3b8;
+    font-weight: 400;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .meta-pill {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 8pt;
+    color: #cbd5e1;
+  }
+
+  .meta-pill strong {
+    color: #00d2ff;
+  }
+
+  /* Section Headings */
+  h1 {
+    font-size: 14.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    border-bottom: 2px solid #00d2ff;
+    padding-bottom: 5px;
+    margin-top: 22px;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+    page-break-after: avoid;
+  }
+
+  h2 {
+    font-size: 11.5pt;
+    font-weight: 600;
+    color: #0369a1;
+    margin-top: 14px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #334155;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin-bottom: 9px;
+    text-align: justify;
+  }
+
+  ul, ol {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  /* Visual Callout Boxes */
+  .callout {
+    padding: 10px 14px;
+    border-radius: 7px;
+    margin: 10px 0;
+    font-size: 9pt;
+    page-break-inside: avoid;
+  }
+
+  .callout-blue {
+    background-color: #f0f9ff;
+    border-left: 4px solid #0284c7;
+    color: #0369a1;
+  }
+
+  .callout-emerald {
+    background-color: #ecfdf5;
+    border-left: 4px solid #059669;
+    color: #065f46;
+  }
+
+  .callout-amber {
+    background-color: #fffbeb;
+    border-left: 4px solid #d97706;
+    color: #92400e;
+  }
+
+  .callout strong {
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 700;
+  }
+
+  /* Pipeline Architecture Cards */
+  .phase-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #0284c7;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    page-break-inside: avoid;
+  }
+
+  .phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .phase-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .phase-badge {
+    background: #e0f2fe;
+    color: #0284c7;
+    font-size: 7.5pt;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+
+  .tech-stack-row {
+    background: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.8pt;
+    color: #0f172a;
+    margin: 5px 0 7px 0;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px 0;
+    font-size: 8.2pt;
+    page-break-inside: avoid;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 6px 9px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background-color: #0f172a;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+
+  /* Math Blocks */
+  .formula-card {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 9px 14px;
+    margin: 9px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.3pt;
+    color: #0f172a;
+    page-break-inside: avoid;
+  }
+
+  .formula-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: #0284c7;
+    margin-bottom: 4px;
+    font-size: 8.5pt;
+  }
+
+  /* Q&A Presentation Box */
+  .qa-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 9px 12px;
+    margin-bottom: 9px;
+    page-break-inside: avoid;
+  }
+
+  .qa-question {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 9pt;
+    margin-bottom: 4px;
+  }
+
+  .qa-answer {
+    color: #334155;
+    font-size: 8.7pt;
+    line-height: 1.45;
+  }
+
+  /* Slide Presentation Table */
+  .slide-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-left: 3px solid #00d2ff;
+    padding: 7px 10px;
+    margin-bottom: 8px;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+
+  .slide-title {
+    font-weight: 700;
+    color: #0f172a;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+
+  .slide-badge {
+    color: #0284c7;
+    font-size: 7.5pt;
+    font-weight: 600;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+</style>
+</head>
+<body>
+
+  <!-- BANNER -->
+  <div class="cover-banner">
+    <div class="cover-title">
+      iTantra 📡
+      <span class="badge">Technical Defense</span>
+    </div>
+    <div class="cover-subtitle">
+      <strong>Indian Multilingual TTS & STT Aided Neural Transceiver Radio Access for Low-Bitrate Links</strong><br>
+      Complete Architecture, Edge AI Models, Network Protocols & Presentation Guide
+    </div>
+    <div class="meta-pills">
+      <div class="meta-pill"><strong>Team:</strong> Fifth Gear</div>
+      <div class="meta-pill"><strong>Event:</strong> IEEE Hackathon</div>
+      <div class="meta-pill"><strong>Domain:</strong> Edge AI & Tactical Communications</div>
+      <div class="meta-pill"><strong>Target Hardware:</strong> Android, Linux, LoRa/P2P Mesh</div>
+      <div class="meta-pill"><strong>Efficiency:</strong> &gt;99.9% Bandwidth Reduction</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <h1>1. Executive Summary & Problem Formulation</h1>
+  <p>
+    During emergency natural disasters (floods, cyclones, landslides) or tactical operations, commercial cellular infrastructure (4G/5G, fiber optic backhauls, grid-powered cell towers) is frequently destroyed or congested. In these environments, communication must revert to low-bitrate ad-hoc radio links, such as <strong>LoRa (0.3 kbps – 5.5 kbps)</strong>, <strong>Bluetooth Low Energy (BLE)</strong>, or <strong>tactical VHF/UHF transceivers</strong>.
+  </p>
+
+  <div class="callout callout-amber">
+    <strong>The Core Bottlenecks of Traditional Radio Systems:</strong>
+    1. <strong>Audio Data Bloat:</strong> Standard uncompressed voice (16 kHz, 16-bit PCM) demands <strong>256 kbps</strong>. Even modern compressed codecs like Opus require <strong>12 kbps – 24 kbps</strong>. On a 1 kbps channel, raw audio experiences 90%+ packet drop and severe latency.<br>
+    2. <strong>Language Barriers in Multilingual Relief:</strong> In India, relief workers and victims speak different regional languages. An alert transmitted in Punjabi cannot be understood by a first-responder who speaks only Tamil or Telugu.<br>
+    3. <strong>Offline Map Dependency:</strong> Commercial navigation apps fail because raster/vector map tiles cannot be downloaded without internet connectivity.
+  </div>
+
+  <p>
+    <strong>The iTantra Solution:</strong> iTantra replaces the transmission of raw audio waveforms with <strong>Semantic Dictionary Coding and Edge Neural Speech Processing</strong>. Voice is transcribed locally on the transmitter's device, compressed into <strong>2-to-4-byte numerical opcodes</strong> or compact text, relayed over a zero-infrastructure P2P mesh network, and reconstructed via <strong>on-device Neural Text-to-Speech (TTS)</strong> in the recipient's preferred native language—simultaneously calculating vector distance and compass bearing to the victim without internet maps.
+  </p>
+
+  <!-- SECTION 2 -->
+  <h1>2. End-to-End Pipeline & Exact Tech Stack at Each Phase</h1>
+  <p>
+    Every transmission traverses a 7-phase edge pipeline. The exact technology stack, libraries, and processing mechanisms at each stage are described below:
+  </p>
+
+  <!-- Phase 1 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-title">Phase 1: Audio Capture & WebRTC Voice Activity Detection (VAD)</span>
+      <span class="phase-badge">Capture & Framing</span>
+    </div>
+    <div class="tech-stack-row">
+      Tech Stack: Python webrtcvad (C-Extension) • HTML5 AudioContext (Web Audio API) • Android AudioRecord HAL via Flutter speech_to_text
+    </div>
+    <p>
+      The audio stream is sampled at 16 kHz and segmented into 10ms–30ms frames. A Gaussian Mixture Model (GMM) energy classifier evaluates sub-band energy across 80 Hz–4000 Hz. When speech energy drops below the noise floor for a continuous duration <strong>&gt; 600ms</strong>, the system detects a natural sentence boundary and automatically triggers packetization without manual Push-To-Talk (PTT) interaction.
+    </p>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-title">Phase 2: Speech-To-Text (ASR) & Automatic Script LID</span>
+      <span class="phase-badge">Edge AI Inference</span>
+    </div>
+    <div class="tech-stack-row">
+      Tech Stack: OpenAI Whisper-Tiny (INT8 Quantized ONNX Runtime) • Alpha Cephei Vosk • Deterministic Unicode Script Analyzer
+    </div>
+    <p>
+      Speech audio is converted directly into text tokens offline. On mobile, the quantized Whisper-Tiny model executes via ONNX Runtime Mobile utilizing ARM NEON integer instructions. Simultaneously, the system executes an O(N) deterministic Script Range Identifier analyzing UTF-16 code units (Devanagari <code>0x0900–0x097F</code>, Tamil <code>0x0B80–0x0BFF</code>, Telugu <code>0x0C00–0x0C7F</code>, etc.) to immediately identify the source language without neural overhead.
+    </p>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-title">Phase 3: Semantic Alert Encoding & Bitrate Compression</span>
+      <span class="phase-badge">Codec Optimization</span>
+    </div>
+    <div class="tech-stack-row">
+      Tech Stack: Custom Byte Codec (app.py & main.dart) • Hex Opcode Mapping • Bit-Packed GPS Delta Encoding
+    </div>
+    <p>
+      Recognized phrases are matched against a pre-compiled Semantic Alert Table (e.g., "Medical emergency" &rarr; <code>0xE1</code>, "Fire outbreak" &rarr; <code>0xE2</code>, "SOS Trapped" &rarr; <code>0xE5</code>). GPS coordinates are delta-compressed into two 16-bit integers. A 5-second audio message (160,000 bytes) is compressed into an ultra-dense <strong>4-to-8 byte hex payload</strong>, achieving <strong>99.98% data reduction</strong>.
+    </p>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-title">Phase 4: Dual-Channel Zero-Infrastructure Mesh Networking</span>
+      <span class="phase-badge">Radio Transport</span>
+    </div>
+    <div class="tech-stack-row">
+      Tech Stack: Google Nearby Connections API (Strategy.P2P_STAR / Wi-Fi Direct) • Offline IPv4 UDP Socket (Port 45454) • TTL Routing
+    </div>
+    <p>
+      Packets are broadcast over two concurrent physical channels: (1) Ad-hoc Wi-Fi Direct / BLE via Google Nearby Connections, and (2) Local UDP Broadcast (<code>255.255.255.255:45454</code>) requiring no router or hotspot. Packets carry a Time-To-Live (<code>TTL = 3</code>) and unique <code>pid</code>. Nodes maintain a deduplication cache (<code>seenPacketIds</code>) and re-relay valid packets to extend radio range across multiple physical hops.
+    </p>
+  </div>
+
+  <!-- Phase 5 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-title">Phase 5: Offline Sensor Context & Geodesic Vector Navigation</span>
+      <span class="phase-badge">Rescue Math</span>
+    </div>
+    <div class="tech-stack-row">
+      Tech Stack: Flutter location plugin • Android LocationManager • Custom GeoMath Engine (Haversine & Azimuth Bearing)
+    </div>
+    <p>
+      The receiver extracts the sender's stamped GPS coordinates and reads its own onboard GPS sensor. It computes the Great-Circle Haversine distance and initial compass bearing (&theta; = atan2(y, x)), translating the result into an 8-point cardinal vector (e.g., <em>"North-East &#x2197;&#xFE0F; (42&deg;) at 145 meters"</em>). Rescuers navigate directly to victims without map tiles.
+    </p>
+  </div>
+
+  <!-- Phase 6 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-title">Phase 6: Indic Multilingual Translation Matrix</span>
+      <span class="phase-badge">Localization</span>
+    </div>
+    <div class="tech-stack-row">
+      Tech Stack: Multi-target Indic Translation Matrix (app.py & main.dart) • AI4Bharat IndicTrans-ready architecture
+    </div>
+    <p>
+      The receiving node checks the user's selected preferred language out of 10 supported Indian languages (Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi, English). The incoming semantic code is mapped to the target language text representation. <em>Receiver Personalization</em> ensures each responder hears the message in their own native tongue.
+    </p>
+  </div>
+
+  <!-- Phase 7 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-title">Phase 7: Neural Text-To-Speech (TTS) Speech Synthesis</span>
+      <span class="phase-badge">Acoustic Output</span>
+    </div>
+    <div class="tech-stack-row">
+      Tech Stack: Piper TTS (VITS Architecture ONNX) • eSpeak-NG C-Engine • flutter_tts • Web Audio Dual-Oscillator Siren
+    </div>
+    <p>
+      The translated string is fed into the local TTS engine. Piper TTS executes an ONNX-quantized VITS model comprising a text encoder, stochastic duration predictor, and HiFi-GAN neural vocoder to generate high-fidelity 22.05 kHz spoken audio on the receiver phone's loudspeaker, supplemented by an emergency siren tone.
+    </p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 3 -->
+  <h1>3. Complete Technical Stack Matrix</h1>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">System Layer</th>
+        <th style="width: 26%;">Technology / Framework</th>
+        <th style="width: 26%;">Libraries & Modules</th>
+        <th style="width: 26%;">Operational Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Mobile Client Application</strong></td>
+        <td>Flutter 3.x / Dart SDK</td>
+        <td><code>flutter/material.dart</code></td>
+        <td>Cross-platform cyber-telecom 4-tab mobile user interface</td>
+      </tr>
+      <tr>
+        <td><strong>Web Transceiver Console</strong></td>
+        <td>HTML5, Vanilla CSS3, JS</td>
+        <td>Canvas 2D API, Web Audio API</td>
+        <td>Oscilloscope audio visualizer, simulated dual-node testbed</td>
+      </tr>
+      <tr>
+        <td><strong>Simulation Backend Server</strong></td>
+        <td>Python 3.10+</td>
+        <td><code>http.server</code>, <code>socketserver</code>, <code>json</code></td>
+        <td>Headless radio transceiver engine and REST API server</td>
+      </tr>
+      <tr>
+        <td><strong>On-Device Speech Recognition</strong></td>
+        <td>OpenAI Whisper / Vosk Indic</td>
+        <td>INT8 ONNX, <code>speech_to_text: ^6.6.0</code></td>
+        <td>Acoustic waveform-to-text conversion on phone hardware</td>
+      </tr>
+      <tr>
+        <td><strong>Voice Activity Detection (VAD)</strong></td>
+        <td>WebRTC VAD / Silero ONNX</td>
+        <td><code>webrtcvad</code> C-extension, AudioContext</td>
+        <td>Energy-based pause detection (&gt;600ms) for auto-transmit</td>
+      </tr>
+      <tr>
+        <td><strong>Language Identification (LID)</strong></td>
+        <td>Unicode Script Boundary Classifier</td>
+        <td>Dart <code>codeUnitAt()</code>, Python Unicode</td>
+        <td>Instant O(N) script detection across 10 Indian languages</td>
+      </tr>
+      <tr>
+        <td><strong>Semantic Codec Engine</strong></td>
+        <td>Custom Binary/Hex Codec</td>
+        <td>Python <code>binascii</code>, Dart <code>utf8.encode()</code></td>
+        <td>Emergency phrase-to-opcode packing and GPS delta compression</td>
+      </tr>
+      <tr>
+        <td><strong>Peer-to-Peer Mesh (Channel 1)</strong></td>
+        <td>Google Nearby Connections</td>
+        <td><code>nearby_connections: ^3.3.0</code> (P2P_STAR)</td>
+        <td>High-bandwidth Wi-Fi Direct and BLE ad-hoc node linking</td>
+      </tr>
+      <tr>
+        <td><strong>Local Broadcast (Channel 2)</strong></td>
+        <td>Offline IPv4 UDP Broadcast</td>
+        <td>Dart <code>RawDatagramSocket</code> (Port 45454)</td>
+        <td>Zero-configuration LAN/Wi-Fi subnet packet broadcast</td>
+      </tr>
+      <tr>
+        <td><strong>Geodesic Vector Radar</strong></td>
+        <td>WGS-84 Geodesic Algorithms</td>
+        <td><code>location: ^5.0.3</code>, custom <code>GeoMath</code></td>
+        <td>Haversine distance and compass bearing vector calculations</td>
+      </tr>
+      <tr>
+        <td><strong>Neural Speech Synthesis</strong></td>
+        <td>Piper TTS / Android TTS</td>
+        <td><code>flutter_tts: ^3.8.3</code>, VITS ONNX</td>
+        <td>Synthesizes translated text into native Indic speech output</td>
+      </tr>
+      <tr>
+        <td><strong>Acoustic Emergency Alarm</strong></td>
+        <td>Web Audio Synthesizer</td>
+        <td><code>BiquadFilterNode</code>, Oscillators</td>
+        <td>800 Hz–1200 Hz frequency sweep high-decibel siren tone</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4 -->
+  <h1>4. Deep Dive into Edge AI Models & INT8 Quantization</h1>
+  <p>
+    Standard foundation AI models cannot run on mobile devices without battery drain or thermal throttling. iTantra optimizes model inference for offline mobile deployment:
+  </p>
+
+  <h3>1. Whisper-Tiny ASR Model (Quantized to INT8 ONNX)</h3>
+  <ul>
+    <li><strong>Architecture:</strong> Encoder-Decoder Transformer with 4 encoder layers, 4 decoder layers, 6 attention heads, and 80-channel log-mel spectrogram preprocessor. Total parameter count: <strong>39 Million</strong>.</li>
+    <li><strong>Quantization Math:</strong> Converts 32-bit Floating Point (FP32) weights to 8-bit signed integers (INT8):
+      <div class="formula-card">
+        Weight_INT8 = round(Weight_FP32 / Scale) + ZeroPoint
+      </div>
+    </li>
+    <li><strong>Performance Impact:</strong> Model disk size drops from <strong>~150 MB to 39 MB</strong>. Memory consumption drops by 74%, enabling inference on low-cost ARM Cortex-A53 processors using ARM NEON SIMD instructions with a Real-Time Factor (RTF) of ~0.3 (5 seconds of audio processed in ~1.5s).</li>
+  </ul>
+
+  <h3>2. Piper Indic Text-to-Speech (VITS Neural Architecture)</h3>
+  <ul>
+    <li><strong>Architecture:</strong> Variational Inference with adversarial learning for end-to-end Text-to-Speech (VITS). Composed of a monotonic alignment search text encoder, stochastic duration predictor, and HiFi-GAN neural vocoder.</li>
+    <li><strong>Footprint:</strong> Individual Indic voice models (<code>voice-hi_IN-medium.onnx</code>, <code>voice-ta_IN-medium.onnx</code>) range from <strong>18 MB to 25 MB</strong>, executing sub-second speech synthesis on mobile CPU.</li>
+  </ul>
+
+  <h3>3. WebRTC Voice Activity Detector</h3>
+  <ul>
+    <li>Operates on 10ms–30ms audio windows using a 6-band filter bank (80 Hz to 4000 Hz). Calculates logarithmic frame energy and classifies voice vs background noise via Gaussian Mixture Models (GMM) with <strong>&lt; 1 ms processing latency</strong>.</li>
+  </ul>
+
+  <!-- SECTION 5 -->
+  <h1>5. Mathematical Formulations & Bandwidth Analytics</h1>
+
+  <div class="formula-card">
+    <div class="formula-title">&#9632; 1. Bandwidth Reduction Ratio & Efficiency Proof</div>
+    Size_raw = Time (s) &times; Sample_Rate (Hz) &times; Bytes_Per_Sample = 5 s &times; 16,000 &times; 2 = 160,000 bytes (160 KB)<br>
+    Size_iTantra_Emergency = 1 Byte (Opcode) + 2 Bytes (Lat Delta) + 2 Bytes (Lng Delta) + 1 Byte (Header) = 6 bytes<br>
+    Bandwidth Saved (%) = (1 - (Size_iTantra / Size_raw)) &times; 100% = (1 - (6 / 160,000)) &times; 100% = <strong>99.996%</strong>
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-title">&#9632; 2. Great-Circle Distance (Haversine Formula)</div>
+    a = sin&sup2;(&Delta;&phi; / 2) + cos(&phi;&#8321;) &times; cos(&phi;&#8322;) &times; sin&sup2;(&Delta;&lambda; / 2)<br>
+    c = 2 &times; atan2(&radic;a, &radic;(1 - a))<br>
+    Distance (d) = R &times; c &nbsp;&nbsp;[where Earth Mean Radius R = 6,371,000 meters]
+  </div>
+
+  <div class="formula-card">
+    <div class="formula-title">&#9632; 3. Initial Forward Compass Azimuth (Bearing Angle)</div>
+    y = sin(&Delta;&lambda;) &times; cos(&phi;&#8322;)<br>
+    x = cos(&phi;&#8321;) &times; sin(&phi;&#8322;) - sin(&phi;&#8321;) &times; cos(&phi;&#8322;) &times; cos(&Delta;&lambda;)<br>
+    &theta; = (atan2(y, x) &times; (180 / &pi;) + 360) mod 360 &nbsp;&nbsp;&rarr;&nbsp;&nbsp;Mapped to 8-point Cardinal Arrow (e.g. 45&deg; = NE &#x2197;&#xFE0F;)
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 6 -->
+  <h1>6. Slide-by-Slide Faculty Presentation Guide</h1>
+
+  <div class="slide-card">
+    <div class="slide-title">Slide 1: Title & Vision <span class="slide-badge">Opening (1 min)</span></div>
+    Introduce iTantra as an Offline-First Neural Transceiver solving communication collapse in disaster and tactical zones. Highlight the team name (Fifth Gear) and core thesis: <em>"Don't transmit voice audio—transmit meaning."</em>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-title">Slide 2: The Core Problem <span class="slide-badge">Context (1.5 min)</span></div>
+    Explain how floods/earthquakes destroy cell towers. Digital voice requires 64–128 kbps; alternative low-bitrate links (LoRa/VHF) cap out at 1–5 kbps, causing massive packet drop. Highlight India's linguistic diversity delaying rescue triage.
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-title">Slide 3: iTantra Architecture & Paradigm Shift <span class="slide-badge">Core Concept (2 min)</span></div>
+    Present the 7-phase architecture: Local VAD &rarr; On-Device STT &rarr; Semantic Byte Codec &rarr; P2P Multi-Hop Mesh &rarr; GPS Stamping &rarr; Receiver-Side Indic Translation &rarr; Neural TTS Synthesis.
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-title">Slide 4: Edge AI & Quantization (Whisper-Tiny & Piper) <span class="slide-badge">Technical Deep-Dive (2 min)</span></div>
+    Explain why foundation models must be quantized for mobile: Whisper-Tiny INT8 (39M parameters, 39 MB RAM) and Piper TTS (VITS architecture, 20 MB/voice). Emphasize zero cloud dependence.
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-title">Slide 5: Dual-Channel Zero-Internet Mesh Network <span class="slide-badge">Networking (2 min)</span></div>
+    Explain Google Nearby Connections (P2P_STAR Wi-Fi Direct) + Offline UDP Broadcast (Port 45454). Explain broadcast storm prevention: Packet Deduplication (seenPacketIds) and TTL-based multi-hop forwarding.
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-title">Slide 6: Offline Geodesic Vector Radar <span class="slide-badge">Mathematics (1.5 min)</span></div>
+    Show why online map tiles fail in disaster zones. Present the Haversine distance formula and initial bearing calculation, showcasing how the app produces a directional arrow and distance directly to the victim.
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-title">Slide 7: Live Demonstration <span class="slide-badge">Demonstration (2 min)</span></div>
+    1. Speak into the transmitter microphone (show automatic pause detection).<br>
+    2. Show the 4-byte payload transmission across the mesh log.<br>
+    3. Demonstrate receiver personalization: change receiver to Tamil/Hindi and play audio output.
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-title">Slide 8: Quantitative Results & Future Scope <span class="slide-badge">Conclusion (1 min)</span></div>
+    Highlight the 99.98% bandwidth savings metric. Discuss future roadmaps: Direct hardware SPI integration with LoRa SX1262 chips, AI4Bharat IndicTrans-v2 edge deployment, and NDRF protocol compliance.
+  </div>
+
+  <!-- SECTION 7 -->
+  <h1>7. Faculty Viva / Defense Anticipated Questions & Answers</h1>
+
+  <div class="qa-box">
+    <div class="qa-question">Q1: "Why not simply transmit compressed Opus audio?"</div>
+    <div class="qa-answer">
+      <strong>Answer:</strong> Even aggressively compressed Opus audio requires 6 kbps to 12 kbps (750 to 1,500 bytes per second). Emergency links like LoRa at Spreading Factor 12 provide only 0.3 kbps to 1 kbps, which causes Opus streams to suffer severe packet loss and dropouts. Furthermore, Opus transmits raw audio locked in the sender's original spoken language. iTantra transmits only 4 to 16 bytes per sentence—a &gt;99.9% reduction—and allows the receiver to reconstitute the message in any of 10 Indian languages.
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q2: "Can budget smartphones run Whisper and Piper TTS offline without thermal throttling?"</div>
+    <div class="qa-answer">
+      <strong>Answer:</strong> Yes. While Whisper-Medium or Large would freeze mobile processors, we deploy Whisper-Tiny quantized to INT8 via ONNX Runtime. With 39 million parameters, it consumes under 40 MB of RAM and executes on mobile ARM NEON integer vector hardware with a Real-Time Factor (RTF) of ~0.3. Piper TTS uses the VITS architecture, which synthesizes 5 seconds of speech in under 400 milliseconds on standard mid-range mobile CPUs.
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q3: "How does the system communicate if there are no Wi-Fi routers or cellular hotspots?"</div>
+    <div class="qa-answer">
+      <strong>Answer:</strong> iTantra does not require any pre-existing infrastructure. Google Nearby Connections uses Wi-Fi Direct, where one mobile device autonomously acts as a Group Owner (GO) to establish ad-hoc high-speed peer links. Concurrently, our secondary transport utilizes offline UDP broadcast on <code>255.255.255.255:45454</code>, which pushes packets across all devices on the same ad-hoc wireless mesh.
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q4: "How do you prevent broadcast storms and infinite packet loops in multi-hop forwarding?"</div>
+    <div class="qa-answer">
+      <strong>Answer:</strong> We implement two safeguards in the MeshEngine: (1) <em>Packet Deduplication:</em> Every packet contains a unique timestamp-derived packet ID (<code>pid</code>). Nodes cache seen IDs in a hash set and immediately drop re-broadcast echoes. (2) <em>Time-To-Live (TTL):</em> Packets originate with <code>TTL = 3</code>. Each intermediate node decrements the counter by 1 before re-transmitting. Once <code>TTL &le; 1</code>, forwarding terminates.
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question">Q5: "How does the directional compass arrow function without map tiles?"</div>
+    <div class="qa-answer">
+      <strong>Answer:</strong> We bypass tile-based map renderers entirely. The transmitter stamps its raw WGS-84 sensor coordinates onto the packet. The receiver reads its own GPS sensor and applies the Haversine distance formula and forward azimuth bearing formula (&theta; = atan2(y, x)). The resulting bearing angle is mapped directly to an 8-point cardinal vector arrow, providing reliable search-and-rescue direction finding.
+    </div>
+  </div>
+
+</body>
+</html>
